@@ -5,6 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+/**
+ * @author : wangtao
+ * @date : 2017/12/26 15:27
+ */
+
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.wangtao.study.controller", "com.wangtao.study.service"})
 @MapperScan(basePackages = "com.wangtao.study.dao")

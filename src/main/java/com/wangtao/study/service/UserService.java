@@ -13,4 +13,11 @@ import java.util.List;
 
 public interface UserService {
     public List<User> getUser(int age);
+
+    public int saveUser(String username, int age, String email);
+
+    List<User> getUserByName(String name);
+
+
+    public User getOne(int id);
 }

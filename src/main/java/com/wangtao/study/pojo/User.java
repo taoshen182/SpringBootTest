@@ -11,6 +11,36 @@ public class User {
     private Integer age;
     private String email;
 
+    public String getSex() {
+        return sex.getSex();
+    }
+
+    public void setSex(UserSexEnum sex) {
+        this.sex = sex;
+    }
+
+    private UserSexEnum sex;
+    private UserStatusEnum status;
+
+    /**
+     * @return 返回枚举状态的值
+     */
+    public String getStatus() {
+        return status.getStatusName();
+    }
+
+//    /**
+//     * @return 返回枚举状态的名称
+//     */
+//    public UserStatusEnum getStatus() {
+//        return status;
+//    }
+
+
+    public void setStatus(UserStatusEnum status) {
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

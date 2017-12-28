@@ -2,9 +2,13 @@ package com.wangtao.study.controller;
 
 import com.wangtao.study.pojo.User;
 import com.wangtao.study.service.UserService;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -29,4 +33,25 @@ public class LoginController {
     public List<User> getUser(int age) {
         return userService.getUser(age);
     }
+
+    @GetMapping(value = "/user/name")
+    @ResponseBody
+    public List<User> getUser(String name) {
+        return userService.getUserByName(name);
+    }
+
+
+    @GetMapping(value = "/user/one")
+    @ResponseBody
+    public User showUser(int id) {
+        return userService.getOne(id);
+    }
+
+    @PostMapping(value = "/user/save")
+    @ResponseBody
+    public int saveUser(String username, int age, String email) {
+        return userService.saveUser(username, age, email);
+    }
+
+
 }

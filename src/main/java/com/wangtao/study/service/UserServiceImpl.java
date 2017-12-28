@@ -20,4 +20,19 @@ public class UserServiceImpl implements UserService {
     public List<User> getUser(int age) {
         return userMapper.getUser(age);
     }
+
+    @Override
+    public List<User> getUserByName(String name) {
+        return userMapper.getUserByName(name);
+    }
+
+    @Override
+    public int saveUser(String username, int age, String email) {
+        return userMapper.saveUser(username, age, email);
+    }
+
+    @Override
+    public User getOne(int id) {
+        return userMapper.getOne(id);
+    }
 }
