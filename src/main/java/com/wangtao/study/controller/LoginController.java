@@ -28,6 +28,18 @@ public class LoginController {
         return "hello world!";
     }
 
+    @GetMapping(value = "/home")
+    @ResponseBody
+    public String home() {
+        return "home home home!";
+    }
+
+    @GetMapping(value = "/login")
+    @ResponseBody
+    public String login() {
+        return "login login login!";
+    }
+
     @GetMapping(value = "/user")
     @ResponseBody
     public List<User> getUser(int age) {

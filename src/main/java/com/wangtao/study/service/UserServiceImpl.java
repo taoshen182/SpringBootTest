@@ -1,6 +1,7 @@
 package com.wangtao.study.service;
 
 import com.wangtao.study.dao.UserMapper;
+import com.wangtao.study.pojo.SysUser;
 import com.wangtao.study.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getOne(int id) {
         return userMapper.getOne(id);
+    }
+
+    @Override
+    public SysUser findByName(String name) {
+        return userMapper.findByName(name);
+    }
+
+    @Override
+    public int update(SysUser user) {
+        return userMapper.update( user);
     }
 }

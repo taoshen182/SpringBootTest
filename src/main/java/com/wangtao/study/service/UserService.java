@@ -1,8 +1,7 @@
 package com.wangtao.study.service;
 
+import com.wangtao.study.pojo.SysUser;
 import com.wangtao.study.pojo.User;
-import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
@@ -18,6 +17,9 @@ public interface UserService {
 
     List<User> getUserByName(String name);
 
+    SysUser findByName(String name);
 
     public User getOne(int id);
+
+    int update(SysUser user);
 }
