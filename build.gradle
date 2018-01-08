@@ -43,7 +43,7 @@ dependencies {
 }
 
 // 刷新gradle时，jar的scope会变成provider，这里加一个任务，将jar复制到项目中，然后右击添加到library
-//task copyJars(type: Copy) {
+//asynctask copyJars(type: Copy) {
 //    from configurations.runtime
 //    into 'lib'
 //}

@@ -12,11 +12,13 @@ import com.wangtao.event.EventConfig;
 import com.wangtao.event.MyPublisher;
 import com.wangtao.profile.ProfileConfig;
 import com.wangtao.profile.ProfileService;
+import com.wangtao.asynctask.TaskConfig;
+import com.wangtao.asynctask.TaskService;
+import com.wangtao.scheduledtask.ScheduledConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -110,6 +112,7 @@ public class StudyApplicationTests {
      * Spring Aware 为了让Bean获得Spring容器的服务。
      * ApplicationContext接口集成了MessageSource接口，ApplicationEventPublisher接口和ResourceLoader接口
      * 所以Bean继承ApplicationContextAware可以获得Spring容器的所有服务。我们可以选择性的实现接口
+     *
      * @throws IOException
      */
     @Test
@@ -117,6 +120,31 @@ public class StudyApplicationTests {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AwareConfig.class);
         AwareService bean = context.getBean(AwareService.class);
         bean.outputResult();
+    }
+
+    /**
+     * 异步任务 多线程
+     * @throws InterruptedException
+     */
+    @Test
+    public void testTask() throws InterruptedException {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(TaskConfig.class);
+        TaskService taskService = context.getBean(TaskService.class);
+        for (int i = 0; i < 10; i++) {
+            taskService.testOne(i);
+            taskService.testTwo(i);
+        }
+        context.close();
+    }
+
+    @Test
+    public void testSchedule(){
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ScheduledConfig.class);
+        while (true){
+
+        }
+//        context.close();
+
     }
 
 
