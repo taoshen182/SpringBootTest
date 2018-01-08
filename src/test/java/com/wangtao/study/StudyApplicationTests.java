@@ -1,5 +1,7 @@
 package com.wangtao.study;
 
+import com.wangtao.aop.AopConfig;
+import com.wangtao.aop.AopService;
 import com.wangtao.beanlife.BeanConfig;
 import com.wangtao.beanlife.BeanLifeService;
 import com.wangtao.el.ElConfig;
@@ -88,6 +90,15 @@ public class StudyApplicationTests {
 
         context.close();
     }
+
+    @Test
+    public void testAop() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AopConfig.class);
+        AopService bean = context.getBean(AopService.class);
+        bean.add();
+        context.close();
+    }
+
 
     @Test
     public void testSecurity() throws IOException {
