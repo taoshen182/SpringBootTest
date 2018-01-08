@@ -7,6 +7,8 @@ import com.wangtao.aware.AwareConfig;
 import com.wangtao.aware.AwareService;
 import com.wangtao.beanlife.BeanConfig;
 import com.wangtao.beanlife.BeanLifeService;
+import com.wangtao.conditional.ConditionConfig;
+import com.wangtao.conditional.ListService;
 import com.wangtao.el.ElConfig;
 import com.wangtao.event.EventConfig;
 import com.wangtao.event.MyPublisher;
@@ -137,6 +139,9 @@ public class StudyApplicationTests {
         context.close();
     }
 
+    /**
+     * 计划任务
+     */
     @Test
     public void testSchedule(){
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ScheduledConfig.class);
@@ -147,6 +152,14 @@ public class StudyApplicationTests {
 
     }
 
+    @Test
+    public void testCondition(){
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConditionConfig.class);
+        ListService bean = context.getBean(ListService.class);
+        System.out.println("当前操作系统是："+ context.getEnvironment().getProperty("os.name")+", list cmd is : " + bean.showListCmd());
+
+
+    }
 
     @Test
     public void testSecurity() throws IOException {
