@@ -1,6 +1,10 @@
 package com.wangtao.study;
 
+import com.wangtao.beanlife.BeanConfig;
+import com.wangtao.beanlife.BeanLifeService;
 import com.wangtao.el.ElConfig;
+import com.wangtao.profile.ProfileConfig;
+import com.wangtao.profile.ProfileService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,11 +35,46 @@ public class StudyApplicationTests {
     }
 
 
+    /**
+     * el 表达式
+     */
     @Test
     public void testValue() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ElConfig.class);
         ElConfig bean = context.getBean(ElConfig.class);
         bean.outputResource();
+        context.close();
+    }
+
+    /**
+     * bean的初始化和销毁
+     */
+    @Test
+    public void testBean() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(BeanConfig.class);
+        BeanLifeService bean = context.getBean(BeanLifeService.class);
+        System.out.println("bean = " + bean.getName());
+        context.close();
+    }
+
+    /**
+     * GenericApplicationContext does not support multiple refresh attempts: just call 'refresh' once
+     */
+    @Test
+    public void testProfile() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        //先将活动的Profile设置为prod
+        context.getEnvironment().setActiveProfiles("prod");
+        //后置注册Bean配置类，不然会报Bean未定义的错误
+        context.register(ProfileConfig.class);
+        //刷新容器
+        context.refresh();
+
+        System.out.println(context.getEnvironment());
+
+        ProfileService prodBean = context.getBean(ProfileService.class);
+        System.out.println("prodBean.getContent() = " + prodBean.getContent());
+
         context.close();
     }
 
