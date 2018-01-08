@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
  * @date : 2018/1/5 17:57
  */
 @Service
-public class ELDemo {
-    @Value("其他类的属性")
+public class ElService {
+
+    @Value("ElService的作者")
     private String author;
 
-    @Value("${book.name}")
     private String name;
 
     public String getName() {

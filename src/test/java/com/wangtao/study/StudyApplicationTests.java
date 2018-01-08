@@ -1,7 +1,6 @@
 package com.wangtao.study;
 
-import com.wangtao.el.ELDemo;
-import com.wangtao.el.ResourceConfig;
+import com.wangtao.el.ElConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,12 +33,10 @@ public class StudyApplicationTests {
 
     @Test
     public void testValue() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ResourceConfig.class);
-        ELDemo elService = context.getBean(ELDemo.class);
-        String author = elService.getAuthor();
-        System.out.println("author = " + author);
-        String name = elService.getName();
-        System.out.println("name = " + name);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ElConfig.class);
+        ElConfig bean = context.getBean(ElConfig.class);
+        bean.outputResource();
+        context.close();
     }
 
     @Test
