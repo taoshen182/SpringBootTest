@@ -3,6 +3,8 @@ package com.wangtao.study;
 import com.wangtao.beanlife.BeanConfig;
 import com.wangtao.beanlife.BeanLifeService;
 import com.wangtao.el.ElConfig;
+import com.wangtao.event.EventConfig;
+import com.wangtao.event.MyPublisher;
 import com.wangtao.profile.ProfileConfig;
 import com.wangtao.profile.ProfileService;
 import org.junit.Test;
@@ -64,7 +66,7 @@ public class StudyApplicationTests {
     public void testProfile() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         //先将活动的Profile设置为prod
-        context.getEnvironment().setActiveProfiles("prod");
+        context.getEnvironment().setActiveProfiles("dev");
         //后置注册Bean配置类，不然会报Bean未定义的错误
         context.register(ProfileConfig.class);
         //刷新容器
@@ -74,6 +76,15 @@ public class StudyApplicationTests {
 
         ProfileService prodBean = context.getBean(ProfileService.class);
         System.out.println("prodBean.getContent() = " + prodBean.getContent());
+
+        context.close();
+    }
+
+    @Test
+    public void testEvent() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(EventConfig.class);
+        MyPublisher bean = context.getBean(MyPublisher.class);
+        bean.publishMsg("hi my event");
 
         context.close();
     }
