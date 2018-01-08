@@ -2,6 +2,7 @@ package com.wangtao.study;
 
 import com.wangtao.aop.AopConfig;
 import com.wangtao.aop.AopService;
+import com.wangtao.aop.NoAnnotationService;
 import com.wangtao.beanlife.BeanConfig;
 import com.wangtao.beanlife.BeanLifeService;
 import com.wangtao.el.ElConfig;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -96,6 +98,9 @@ public class StudyApplicationTests {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AopConfig.class);
         AopService bean = context.getBean(AopService.class);
         bean.add();
+
+        NoAnnotationService noAnnotationService = context.getBean(NoAnnotationService.class);
+        noAnnotationService.doSome();
         context.close();
     }
 
