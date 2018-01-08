@@ -3,6 +3,8 @@ package com.wangtao.study;
 import com.wangtao.aop.AopConfig;
 import com.wangtao.aop.AopService;
 import com.wangtao.aop.NoAnnotationService;
+import com.wangtao.aware.AwareConfig;
+import com.wangtao.aware.AwareService;
 import com.wangtao.beanlife.BeanConfig;
 import com.wangtao.beanlife.BeanLifeService;
 import com.wangtao.el.ElConfig;
@@ -102,6 +104,19 @@ public class StudyApplicationTests {
         NoAnnotationService noAnnotationService = context.getBean(NoAnnotationService.class);
         noAnnotationService.doSome();
         context.close();
+    }
+
+    /**
+     * Spring Aware 为了让Bean获得Spring容器的服务。
+     * ApplicationContext接口集成了MessageSource接口，ApplicationEventPublisher接口和ResourceLoader接口
+     * 所以Bean继承ApplicationContextAware可以获得Spring容器的所有服务。我们可以选择性的实现接口
+     * @throws IOException
+     */
+    @Test
+    public void testAware() throws IOException {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AwareConfig.class);
+        AwareService bean = context.getBean(AwareService.class);
+        bean.outputResult();
     }
 
 
