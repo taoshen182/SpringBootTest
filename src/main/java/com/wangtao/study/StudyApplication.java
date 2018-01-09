@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.study.controller", "com.wangtao.study.service"})
+@ComponentScan(basePackages = {"com.wangtao.study.controller", "com.wangtao.mvc","com.wangtao.study.service"})
 @MapperScan(basePackages = "com.wangtao.study.dao")
 public class StudyApplication {
 

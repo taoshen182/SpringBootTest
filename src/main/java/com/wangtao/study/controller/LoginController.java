@@ -1,5 +1,6 @@
 package com.wangtao.study.controller;
 
+import com.wangtao.aop.Action;
 import com.wangtao.study.pojo.User;
 import com.wangtao.study.service.UserService;
 import org.apache.ibatis.annotations.Result;
@@ -23,6 +24,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    @Action
     @Secured("role_super")
     @GetMapping(value = "/index")
     @ResponseBody

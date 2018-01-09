@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AopService {
-    @Action(name = "我的注解")
+    @Action("我的注解")
     public void add() {
         System.out.println("AopService add ... ");
     }
