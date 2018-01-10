@@ -20,3 +20,5 @@ actuator
 @ConditionalOnResource              类路径是否有指定的值
 @ConditionalOnSingleCandidate       当指定Bean在容器中只有一个，或者虽然有多个但是指定首选的Bean
 @ConditionalOnWebApplication        当前项目是web项目的条件下
+
+2018-1-10  第189页

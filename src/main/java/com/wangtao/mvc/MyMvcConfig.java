@@ -20,7 +20,7 @@ public class MyMvcConfig {
         InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
 
         resourceViewResolver.setPrefix("/WEB-INF/classes/views/");
-        resourceViewResolver.setSuffix(".jsp");
+        resourceViewResolver.setSuffix(".html");
         resourceViewResolver.setViewClass(JstlView.class);
         return resourceViewResolver;
     }

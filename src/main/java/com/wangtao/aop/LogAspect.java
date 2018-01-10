@@ -20,17 +20,22 @@ import java.lang.reflect.Method;
 public class LogAspect {
 
     @Pointcut("@annotation(com.wangtao.aop.Action)")
-    public void pointCut() {}
+    public void pointCut() {
+    }
 
     @Around("pointCut()")
-    public void advice(ProceedingJoinPoint joinPoint) {
+    public Object advice(ProceedingJoinPoint joinPoint) {
         System.out.println("环绕通知之开始");
+        Object proceed = null;
         try {
-            joinPoint.proceed();
+            proceed = joinPoint.proceed();
+            System.out.println("proceed = " + proceed.toString());
         } catch (Throwable e) {
             e.printStackTrace();
         }
         System.out.println("环绕通知之结束");
+        return proceed;
+
     }
 
     @Before("pointCut()")
