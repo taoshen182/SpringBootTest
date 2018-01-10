@@ -1,12 +1,14 @@
 package com.wangtao.study.controller;
 
 import com.wangtao.aop.Action;
+import com.wangtao.properties.HelloService;
 import com.wangtao.study.pojo.User;
 import com.wangtao.study.service.UserService;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,17 +21,21 @@ import java.util.List;
  * @author : wangtao
  * @date : 2017/12/27 10:45
  */
+@EnableAspectJAutoProxy
 @Controller
 public class LoginController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HelloService helloService;
 
     @Action
     @Secured("role_super")
     @GetMapping(value = "/index")
     @ResponseBody
     public String index() {
-        return "hello world!";
+        return "hello world!" + " helloService.sayHello = " + helloService.sayHello();
     }
 
 

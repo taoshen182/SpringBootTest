@@ -3,6 +3,8 @@ package com.wangtao.study;
 import com.wangtao.aop.AopConfig;
 import com.wangtao.aop.AopService;
 import com.wangtao.aop.NoAnnotationService;
+import com.wangtao.asynctask.TaskConfig;
+import com.wangtao.asynctask.TaskService;
 import com.wangtao.aware.AwareConfig;
 import com.wangtao.aware.AwareService;
 import com.wangtao.beanlife.BeanConfig;
@@ -14,8 +16,8 @@ import com.wangtao.event.EventConfig;
 import com.wangtao.event.MyPublisher;
 import com.wangtao.profile.ProfileConfig;
 import com.wangtao.profile.ProfileService;
-import com.wangtao.asynctask.TaskConfig;
-import com.wangtao.asynctask.TaskService;
+import com.wangtao.properties.HelloService;
+import com.wangtao.properties.HelloServiceAutoConfiguration;
 import com.wangtao.scheduledtask.ScheduledConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -126,6 +128,7 @@ public class StudyApplicationTests {
 
     /**
      * 异步任务 多线程
+     *
      * @throws InterruptedException
      */
     @Test
@@ -143,9 +146,9 @@ public class StudyApplicationTests {
      * 计划任务
      */
     @Test
-    public void testSchedule(){
+    public void testSchedule() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ScheduledConfig.class);
-        while (true){
+        while (true) {
 
         }
 //        context.close();
@@ -153,11 +156,21 @@ public class StudyApplicationTests {
     }
 
     @Test
-    public void testCondition(){
+    public void testCondition() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConditionConfig.class);
         ListService bean = context.getBean(ListService.class);
-        System.out.println("当前操作系统是："+ context.getEnvironment().getProperty("os.name")+", list cmd is : " + bean.showListCmd());
+        System.out.println("当前操作系统是：" + context.getEnvironment().getProperty("os.name") + ", list cmd is : " + bean.showListCmd());
 
+
+    }
+
+    @Test
+    public void testAutoConfig() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(HelloServiceAutoConfiguration.class);
+        HelloService bean = context.getBean(HelloService.class);
+        System.out.println("bean = " + bean.hashCode());
+        String s = bean.sayHello();
+        System.out.println("s = " + s);
 
     }
 

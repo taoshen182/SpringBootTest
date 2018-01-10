@@ -33,7 +33,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-mongodb')
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-aop')
-
+    /* spring boot 默认的日志框架Logback*/
+    compile('org.springframework.boot:spring-boot-starter-logging')
     // https://mvnrepository.com/artifact/javax.servlet/jstl
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 
