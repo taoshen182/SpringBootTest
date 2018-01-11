@@ -7,6 +7,8 @@ mybatis
 
 actuator
 
+### 2018-1-10  第189页 ###
+
 自动配置的核心注解
 @ConditionalOnBean                  当容器有指定Bean的条件下
 @ConditionalOnClass                 当类路径下有指定的类的条件下
@@ -21,4 +23,13 @@ actuator
 @ConditionalOnSingleCandidate       当指定Bean在容器中只有一个，或者虽然有多个但是指定首选的Bean
 @ConditionalOnWebApplication        当前项目是web项目的条件下
 
-2018-1-10  第189页
+
+### 2018-1-11  第189页 --> 第189页 ###
+知识要点：
+①Tomcat,Jetty,Undertow容器的自定义配置（配置文件，代码）
+②SSL配置
+③页面标题图标设置  Favicon
+④WebSocket / SocketJS(WebSocket协议的模拟，增加了当浏览器不支持WebSocket的时候的兼容支持)
+直接使用，开发繁琐，一般使用STOMP协议，基于帧(frame),与Http的request和response类型
+
+

@@ -1,0 +1,95 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE-edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+    <link th:href="@{bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{bootstrap/dist/css/bootstrap-theme.min.css}" rel="stylesheet"/>
+
+    <title>Spring Boot + WebSocket + 广播式</title>
+</head>
+<body onload="disconnect()">
+<noscript><h2 style="color: #ff000f;">不支持WebSocket</h2></noscript>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <button id="connect" onclick="connect();" class="btn btn-success">连接</button>
+        <button id="disconnect" onclick="disconnect();" disabled="disabled" class="btn btn-warning">断开连接</button>
+    </div>
+
+    <div id="conversationDiv" class="panel">
+        <form class="form-inline">
+            <div class="form-group">
+                <label>输入你的名字</label>
+                <input class="form-control" type="text" id="name"/>
+
+            </div>
+        </form>
+
+        <div class="form-group">
+            <button id="sendName" onclick="sendName();" class="btn btn-info" disabled="disabled" type="button">
+                发送
+            </button>
+        </div>
+
+        <div class="form-group">
+            <p class="form-control" id="response"></p>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+<script th:src="@{jquery-3.2.1.js}" type="text/javascript"></script>
+<script th:src="@{bootstrap/dist/js/bootstrap.js}" type="text/javascript"></script>
+<script>
+    var stompClient = null;
+
+    function setConnected(connected) {
+
+        $("#connect").attr("disabled", connected);
+
+        $("#sendName").attr("disabled", !connected);
+
+        $("#disconnect").attr("disabled", !connected);
+
+        $("#conversationDiv").css("visibility", connected ? "visible" : "hidden");
+
+    }
+
+    function connect() {
+        var socket = new SockJS("/myendpoint");
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            setConnected(true);
+            console.log("Connected : " + frame);
+            stompClient.subscribe("/topic/getResponse", function (response) {
+                showResponse(JSON.parse(response.body).responseMsg);
+            })
+        });
+    }
+
+    function disconnect() {
+        if (stompClient != null) {
+            stompClient.disconnect();
+        }
+
+        setConnected(false);
+        console.log("Disconnected...");
+    }
+
+    function sendName() {
+        var name = $("#name").val();
+        stompClient.send("/welcome", {}, JSON.stringify({"name": name}));
+    }
+
+    function showResponse(msg) {
+        console.log("msg is : " + msg)
+//        var old = $("#response").val();
+        var old = $("#response").html();
+        $("#response").html(old + "  " + msg);
+    }
+
+</script>
+</body>
+</html>

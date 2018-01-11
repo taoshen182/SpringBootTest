@@ -1,16 +1,19 @@
 package com.wangtao;
 
-import com.wangtao.study.pojo.SysUser;
-import com.wangtao.study.service.UserService;
-import org.mybatis.spring.annotation.MapperScan;
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.boot.Banner;
 import org.springframework.boot.ResourceBanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.File;
 
@@ -20,7 +23,7 @@ import java.io.File;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.thymeleaf"})
+@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.websocket"})
 //@MapperScan(basePackages = "com.wangtao.study.dao")
 public class StudyApplication {
 
@@ -51,5 +54,48 @@ public class StudyApplication {
         app.setBannerMode(Banner.Mode.CONSOLE);
 
         ConfigurableApplicationContext applicationContext = app.run(args);
+    }
+
+    /**
+     * 配置容器
+     */
+//    @Component
+//    public class MyContainer implements EmbeddedServletContainerCustomizer {
+//        @Override
+//        public void customize(ConfigurableEmbeddedServletContainer container) {
+//            container.setPort(8998);
+//            container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/404.html"));
+//            container.setSessionTimeout(20, TimeUnit.MINUTES);
+//            System.out.println("in StudyApplication ... ");
+//        }
+//    }
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+            @Override
+            protected void postProcessContext(Context context) {
+                SecurityConstraint constraint = new SecurityConstraint();
+                constraint.setUserConstraint("CONFIDENTIAL");
+
+                SecurityCollection collection = new SecurityCollection();
+                collection.addPattern("/*");
+
+                constraint.addCollection(collection);
+                context.addConstraint(constraint);
+            }
+        };
+
+        tomcat.addAdditionalTomcatConnectors(httpConnector());
+        return tomcat;
+    }
+
+    @Bean
+    public Connector httpConnector() {
+        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        connector.setPort(8080);
+        connector.setScheme("http");
+        connector.setSecure(false);
+        connector.setRedirectPort(8443);
+        return connector;
     }
 }
