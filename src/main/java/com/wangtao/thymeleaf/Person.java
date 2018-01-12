@@ -7,6 +7,22 @@ package com.wangtao.thymeleaf;
 
 public class Person {
     private String name;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Person(String name, String address, Integer age) {
+        this.name = name;
+        this.address = address;
+        this.age = age;
+    }
+
+    private String address;
     private Integer age;
 
     public Person(String name, Integer age) {

@@ -23,7 +23,8 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("chat")
+                .defaultSuccessUrl("/chat")
+                .failureUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout().permitAll();
@@ -39,6 +40,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/static/**");
+        web.ignoring().antMatchers("/**/*.js","/**/*.css");
     }
 }

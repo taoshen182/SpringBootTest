@@ -23,7 +23,7 @@ import java.io.File;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.websocket"})
+@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.websocket","com.wangtao.security"})
 //@MapperScan(basePackages = "com.wangtao.study.dao")
 public class StudyApplication {
 

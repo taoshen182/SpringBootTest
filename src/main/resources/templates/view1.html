@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>视图1</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="content" style="margin-top: 100px;margin-left: 50px;">
+    <div class="row">
+        <label class="col-md-1 control-label">名称</label>
+        <div class="col-md-2">
+            <input type="text" class="form-control" ng-model="personName"/>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-info" ng-click="search()">查询</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item">名字：{{person.name}}</li>
+                <li class="list-group-item">年龄：{{person.age}}</li>
+                <li class="list-group-item">地址：{{person.address}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

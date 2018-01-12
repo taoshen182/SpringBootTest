@@ -34,14 +34,14 @@ public class WsController {
 
     @MessageMapping("/chat")
     public void handleChat(Principal principal, String msg) {
-        System.out.println("principal = " + principal);
-        System.out.println("msg = " + msg);
+        System.out.println("principal = " + principal.toString());
+        System.out.println("msg = " + msg.trim());
 
         if (StringUtils.equals("wangtao", principal.getName())) {
-            messagingTemplate.convertAndSendToUser("wt", "/queue/notifications", principal.getName() + " send msg :" + msg);
+            messagingTemplate.convertAndSendToUser("wt", "/queue/notifications", principal.getName() + " send a msg to u . The msg is : " + msg.trim());
         }
         if (StringUtils.equals("wt", principal.getName())) {
-            messagingTemplate.convertAndSendToUser("wangtao", "/queue/notifications", principal.getName() + " send msg :" + msg);
+            messagingTemplate.convertAndSendToUser("wangtao", "/queue/notifications", principal.getName() + " send a msg to u . The msg is : " + msg.trim());
         }
 
     }
