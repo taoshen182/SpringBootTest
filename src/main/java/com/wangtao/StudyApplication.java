@@ -1,9 +1,12 @@
 package com.wangtao;
 
+import com.wangtao.data.jpa.CustomRepositoryFactoryBean;
+import com.wangtao.data.jpa.PersonRepository2;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.ResourceBanner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +17,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.File;
 
@@ -23,8 +27,9 @@ import java.io.File;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.websocket","com.wangtao.security"})
+@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.data.jpa", "com.wangtao.security", "com.wangtao.websocket"})
 //@MapperScan(basePackages = "com.wangtao.study.dao")
+//@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryFactoryBean.class)
 public class StudyApplication {
 
     public static void main(String[] args) {
@@ -69,33 +74,35 @@ public class StudyApplication {
 //            System.out.println("in StudyApplication ... ");
 //        }
 //    }
-    @Bean
-    public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                SecurityConstraint constraint = new SecurityConstraint();
-                constraint.setUserConstraint("CONFIDENTIAL");
 
-                SecurityCollection collection = new SecurityCollection();
-                collection.addPattern("/*");
+    //配置端口转发
+//    @Bean
+//    public EmbeddedServletContainerFactory servletContainer() {
+//        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+//            @Override
+//            protected void postProcessContext(Context context) {
+//                SecurityConstraint constraint = new SecurityConstraint();
+//                constraint.setUserConstraint("CONFIDENTIAL");
+//
+//                SecurityCollection collection = new SecurityCollection();
+//                collection.addPattern("/*");
+//
+//                constraint.addCollection(collection);
+//                context.addConstraint(constraint);
+//            }
+//        };
+//
+//        tomcat.addAdditionalTomcatConnectors(httpConnector());
+//        return tomcat;
+//    }
 
-                constraint.addCollection(collection);
-                context.addConstraint(constraint);
-            }
-        };
-
-        tomcat.addAdditionalTomcatConnectors(httpConnector());
-        return tomcat;
-    }
-
-    @Bean
-    public Connector httpConnector() {
-        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
-        connector.setPort(8080);
-        connector.setScheme("http");
-        connector.setSecure(false);
-        connector.setRedirectPort(8443);
-        return connector;
-    }
+//    @Bean
+//    public Connector httpConnector() {
+//        Connector connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+//        connector.setPort(8080);
+//        connector.setScheme("http");
+//        connector.setSecure(false);
+//        connector.setRedirectPort(8443);
+//        return connector;
+//    }
 }

@@ -15,16 +15,16 @@ import org.thymeleaf.util.StringUtils;
 public class ThymeleafController {
     @RequestMapping("/index")
     public String index(Model model) {
-        Person person = new Person("wangtao", 26);
+        PersonTest person = new PersonTest("wangtao", 26);
 
         model.addAttribute("person", person);
-        System.out.println("person = " + person);
+        System.out.println("person = " + person.getName());
         return "index";
     }
 
     @RequestMapping("/aaa")
     public String aaa(Model model) {
-        Person person = new Person("aaa", 26);
+        PersonTest person = new PersonTest("aaa", 26);
 
         model.addAttribute("person", person);
         System.out.println("person = " + person);
@@ -33,11 +33,11 @@ public class ThymeleafController {
 
     @RequestMapping(value = "/search", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Person search(String personName) {
+    public PersonTest search(String personName) {
         System.out.println("personName = " + personName);
         if (StringUtils.isEmpty(personName)) {
             personName = "default";
         }
-        return new Person(personName, "shanghai", 26);
+        return new PersonTest(personName, "shanghai", 26);
     }
 }

@@ -5,7 +5,7 @@ package com.wangtao.thymeleaf;
  * @date : 2018/1/10 16:31
  */
 
-public class Person {
+public class PersonTest {
     private String name;
 
     public String getAddress() {
@@ -16,7 +16,7 @@ public class Person {
         this.address = address;
     }
 
-    public Person(String name, String address, Integer age) {
+    public PersonTest(String name, String address, Integer age) {
         this.name = name;
         this.address = address;
         this.age = age;
@@ -25,12 +25,12 @@ public class Person {
     private String address;
     private Integer age;
 
-    public Person(String name, Integer age) {
+    public PersonTest(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
 
-    public Person() {
+    public PersonTest() {
 
     }
 

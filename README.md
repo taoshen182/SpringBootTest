@@ -35,4 +35,33 @@ actuator
 
 ### 2018-1-12  第212页 --> 第242页 ###
 ①数据绑定
+②docker 常用命令
+    docker search 镜像名                Docker镜像检索
+    docker pull 镜像名                  Docker镜像下载
+    docker images                      镜像列表
+    docker rmi image-id(镜像id)        镜像删除
+    docker rmi $(docker images -q)      删除全部镜像
+    docker ps                           容器列表，UP状态的
+    docker ps -a                        全部容器
+    docker stop 容器名称/容器id           停止容器
+    docker start 容器名称/容器id          启动容器
+    docker rm 容器名称/容器id             删除容器
+    docker rm $(docker ps -a -q)         删除所有容器
+    docker logs 容器名称/容器id           查看容器日志
+    docker exec -it 容器名称/容器id bash  登录容器
+    
+    docker run                          
+            -d                          detached 控制台不会被阻碍
+            --name                      容器名称
+            -p 8090:8080                
+
+
+③
+
+
+
+
+
+
+
 
