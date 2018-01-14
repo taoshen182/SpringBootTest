@@ -3,11 +3,11 @@ package com.wangtao.data.jpa;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -16,11 +16,11 @@ import java.util.List;
  * Created by want on 2018-1-13.
  */
 //@Repository  //这里不需要注解 jpa自动注册
-public interface PersonRepository extends JpaRepository<Person, Long>
-{
-    List<Person> findByName(String name);
+@RepositoryRestResource(path = "pp") //自定义REST的路径，默认实体类之后加s来形成路径
+public interface PersonRepository extends JpaRepository<Person, Long> {
+//    List<Person> findByName(String name);
 
-    List<Person> findByName(String name, Sort sort);
+//    List<Person> findByName(String name, Sort sort);
 
     @Query("select p from Person p where p.address=?1")
     List<Person> findByAddress(String address);
@@ -45,4 +45,7 @@ public interface PersonRepository extends JpaRepository<Person, Long>
     int setAddress(String address);
 
     Page<Person> findByName(String name, Pageable pageable);
+
+    @RestResource(path = "nameStartsWith", rel = "nameStartsWith")
+    Person findByNameStartsWith(@Param("name") String name);
 }
