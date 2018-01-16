@@ -35,7 +35,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-aop')
-    compile('org.springframework.boot:spring-boot-devtools')
+//    compile('org.springframework.boot:spring-boot-devtools')
     compile('org.springframework.boot:spring-boot-starter-thymeleaf')
     /*添加websocket支持*/
     compile('org.springframework.boot:spring-boot-starter-websocket')
@@ -43,6 +43,16 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-logging')
     // https://mvnrepository.com/artifact/javax.servlet/jstl
     compile group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+    compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.3.RELEASE'
+// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring4
+    compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.3.RELEASE'
+// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
+    compile group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.2.2'
+
 
 // https://mvnrepository.com/artifact/com.google.guava/guava
     compile group: 'com.google.guava', name: 'guava', version: '21.0'

@@ -1,23 +1,12 @@
 package com.wangtao;
 
-import com.wangtao.data.jpa.CustomRepositoryFactoryBean;
-import com.wangtao.data.jpa.PersonRepository2;
-import org.apache.catalina.Context;
-import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.ResourceBanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.File;
 
@@ -27,7 +16,7 @@ import java.io.File;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.data.jpa", "com.wangtao.security", "com.wangtao.websocket"})
+@ComponentScan(basePackages = {"com.wangtao.thymeleaf",  "com.wangtao.security"})
 //@MapperScan(basePackages = "com.wangtao.study.dao")
 //@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryFactoryBean.class)
 public class StudyApplication {

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by want on 2018-1-13.
  */
-@RestController
+//@RestController
 public class DataController {
     @Autowired
     PersonRepository personRepository;

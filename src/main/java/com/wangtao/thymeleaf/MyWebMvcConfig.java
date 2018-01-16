@@ -1,10 +1,10 @@
 package com.wangtao.thymeleaf;
 
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 /**
  * @author : wangtao
@@ -17,12 +17,13 @@ public class MyWebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 //        super.addViewControllers(registry);
-        registry.addViewController("/bbb").setViewName("/test");
-        registry.addViewController("/login").setViewName("/login");
-        registry.addViewController("/chat").setViewName("/chat");
-        registry.addViewController("/").setViewName("/login");
-        registry.addViewController("/action").setViewName("/angulartest");
-        registry.addViewController("/view1").setViewName("/view1");
-        registry.addViewController("/view2").setViewName("/view2");
+        registry.addViewController("/bbb").setViewName("test");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/chat").setViewName("chat");
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/action").setViewName("angulartest");
+        registry.addViewController("/view1").setViewName("view1");
+        registry.addViewController("/view2").setViewName("view2");
     }
+
 }

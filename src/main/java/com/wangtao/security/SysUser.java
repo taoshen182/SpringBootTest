@@ -1,5 +1,6 @@
 package com.wangtao.security;
 
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,11 +11,12 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by want on 2018-1-14.
+ * @author want
+ * @date 2018-1-14
  */
 @Entity
 public class SysUser implements UserDetails {
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue
@@ -87,5 +89,15 @@ public class SysUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

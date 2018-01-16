@@ -3,12 +3,13 @@ package com.wangtao.security;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by want on 2018-1-14.
  */
 @Entity
-public class SysRole {
+public class SysRole implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -28,5 +29,13 @@ public class SysRole {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "SysRole{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

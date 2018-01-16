@@ -4,11 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.script.ScriptTemplateViewResolver;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
-import org.w3c.dom.ranges.RangeException;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.DefaultTemplateResolver;
+import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 /**
  * @author : wangtao
@@ -21,11 +22,11 @@ import org.w3c.dom.ranges.RangeException;
 public class ThymeleafConfig {
 
     @Bean
-    public TemplateResolver templateViewResolver() {
-        TemplateResolver resolver = new TemplateResolver();
-        resolver.setPrefix("/WEB-INF/classes/views");
-        resolver.setSuffix(".html");
-        resolver.setTemplateMode("HTML5");
+    public DefaultTemplateResolver templateViewResolver() {
+        DefaultTemplateResolver resolver = new DefaultTemplateResolver();
+//        resolver.setPrefix("/WEB-INF/classes/views");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        System.out.println("ThymeleafConfig templateViewResolver ... " + resolver);
         return resolver;
     }
 
@@ -34,8 +35,10 @@ public class ThymeleafConfig {
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateViewResolver());
+        engine.addDialect(new SpringSecurityDialect());
         return engine;
     }
+
 
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {

@@ -56,11 +56,56 @@ actuator
             -p 8090:8080                
 
 
-### 2018-1-14  第242页 --> 第242页 ###
+### 2018-1-14  第242页 --> 第350页 ###
 ①JPA
 ②REST 
 @事务
 
+### 2018-1-15  第350页 --> 第242页 ###
+①数据库中的用户，默认配置。   JdbcDaoImpl.loadUserByUsername
+sql :   select username,password,enabled
+        from users where username = ?
+
+        select username,authority
+        from authorities where username = ?
+
+        select g.id, g.group_name, ga.authority
+        from groups g, group_members gm, group_authorities ga
+        where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id
+
+users
+        CREATE TABLE `users` (
+          `username` varchar(255) NOT NULL,
+          `password` varchar(255) default NULL,
+          `enabled` varchar(255) default NULL,
+          PRIMARY KEY  USING BTREE (`username`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+authorities
+        CREATE TABLE `authorities` (
+          `username` varchar(255) NOT NULL,
+          `authority` varchar(255) default NULL,
+          PRIMARY KEY  USING BTREE (`username`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+group_authorities
+        CREATE TABLE `group_authorities` (
+          `group_id` int(11) NOT NULL,
+          `authority` varchar(255) default NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+group_members
+        CREATE TABLE `group_members` (
+          `group_id` int(11) NOT NULL,
+          `username` varchar(255) default NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+groups
+        CREATE TABLE `groups` (
+          `id` int(11) NOT NULL auto_increment,
+          `group_name` varchar(255) default NULL,
+          PRIMARY KEY  (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
