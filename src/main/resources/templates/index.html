@@ -10,29 +10,41 @@
     <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
     <link th:href="@{bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"/>
 
-    <title sec:authentication="name"></title>
+    <title>首页</title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="#">首页</a></li>
-                <li><a href="/chat">聊天室</a></li>
-                <li><a href="/bbb">测试页面</a></li>
-                <li><a href="/action">Angular</a></li>
-                <li><a href="#">关于</a></li>
-            </ul>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle">
+                <span class="icon-bar">首页</span>
+            </button>
+            <a class="navbar-brand" href="/">首页</a>
+            <a class="navbar-brand" href="/chat">聊天室</a>
+            <a class="navbar-brand" href="/bbb">测试页面</a>
+            <a class="navbar-brand" href="/action">Angular</a>
+            <a class="navbar-brand" href="#">关于</a>
         </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right ">
+                <li sec:authorize="isAuthenticated()">
+                    <span class="navbar-brand" sec:authentication="name">Welcome</span>
+                </li>
+                <li><a href="javascript:void($('#form').submit())" class="navbar-brand">注销</a></li>
+            </ul>
+
+        </div>
+
+
     </div>
 </nav>
 <div class="panel panel-primary" style="margin-top: 50px">
     <div class="panel-heading">
         <h3 class="panel-title">访问</h3>
     </div>
-    <div class="panel-body">
-        <span th:text="${person.name}"></span>
-    </div>
+    <!--<div class="panel-body">-->
+    <!--<span th:text="${person.name}"></span>-->
+    <!--</div>-->
     <div sec:authorize="isAuthenticated()">
         User: <span sec:authentication="name">user</span>
     </div>
@@ -43,21 +55,19 @@
         拥有ROLE_ADMIN
     </div>
     <!--<div sec:authorize="hasAuthority('ADMIN')">-->
-        <!--hasAuthority ADMIN-->
+    <!--hasAuthority ADMIN-->
     <!--</div>-->
     <!--<div sec:authorize="hasAuthority('USER')">-->
-        <!--hasAuthority USER-->
+    <!--hasAuthority USER-->
     <!--</div>-->
     <!--<div sec:authorize="isAuthentecated()">-->
-        <!--Hello <span sec:authentication="name">someone</span>-->
+    <!--Hello <span sec:authentication="name">someone</span>-->
     <!--</div>-->
     <!--<sec:authorize access="isAuthenticated()">-->
-        <!--<a href="/admin">Administration</a>-->
+    <!--<a href="/admin">Administration</a>-->
     <!--</sec:authorize>-->
 </div>
-
-<form th:action="@{/logout}" method="post" class="form-inline">
-    <button type="submit" class="btn btn-info">注销</button>
+<form th:action="@{/logout}" method="post" id="form">
 </form>
 
 <script th:src="@{jquery-3.2.1.js}" type="text/javascript"></script>

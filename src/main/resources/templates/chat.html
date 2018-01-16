@@ -14,10 +14,11 @@
 
     <h3>聊天室</h3>
     <form id="form" class="form-inline">
-    <textarea id="text" rows="4" cols="60" name="text"></textarea>
+        <textarea id="text" rows="4" cols="60" name="text"></textarea>
 
         <input type="submit" class="btn btn-info"/>
         <button type="button" id="stop" class="btn btn-warning">关闭</button>
+        <button type="button" id="back" class="btn btn-info">返回</button>
     </form>
     <div id="output"></div>
 </div>
@@ -50,6 +51,9 @@
 
     $("#stop").click(function () {
         sock.close()
+    });
+    $("#back").click(function () {
+        window.location.href = '/';
     });
 
 </script>

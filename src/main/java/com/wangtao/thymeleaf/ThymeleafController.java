@@ -22,13 +22,9 @@ public class ThymeleafController {
         return "index";
     }
 
-    @RequestMapping("/aaa")
+    @RequestMapping("/home")
     public String aaa(Model model) {
-        PersonTest person = new PersonTest("aaa", 26);
-
-        model.addAttribute("person", person);
-        System.out.println("person = " + person);
-        return "aaa";
+        return "home";
     }
 
     @RequestMapping(value = "/search", produces = {MediaType.APPLICATION_JSON_VALUE})

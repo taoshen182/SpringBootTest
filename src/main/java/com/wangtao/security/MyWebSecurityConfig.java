@@ -35,6 +35,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+//                .successForwardUrl("/index")
                 .defaultSuccessUrl("/index")
                 .failureUrl("/login?error")
                 .permitAll()
@@ -69,6 +70,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**/*.js", "/**/*.css");
+        web.ignoring().antMatchers("/**/*.js","/**/*.css","/jquery-ui-1.12.1/**","/font-awesome/**");
     }
 }

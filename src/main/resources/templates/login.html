@@ -3,37 +3,150 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-COMPATIBLE" content="IE-edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet"/>
-
+    <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{bootstrap/css/bootstrap-theme.min.css}" rel="stylesheet"/>
+    <link th:href="@{font-awesome/css/font-awesome.min.css}" rel="stylesheet"/>
     <title>登录</title>
+    <style>
+        body {
+            font-family: 'microsoft yahei', Arial, sans-serif;
+            background-color: #222;
+        }
+
+        .redborder {
+            border: 2px solid #f96145;
+            border-radius: 2px;
+        }
+
+        .row {
+            padding: 20px 0px;
+        }
+
+        .bigicon {
+            font-size: 97px;
+            color: #f08000;
+        }
+
+        .loginpanel {
+            text-align: center;
+            width: 300px;
+            border-radius: 0.5rem;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 10px auto;
+            background-color: #555;
+            padding: 20px;
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 17px;
+            padding: 15px;
+            background-color: #ECF4F4;
+            border-radius: 2px;
+            border: none;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: normal;
+            color: #EFEFEF;
+        }
+
+        .btn {
+            border-radius: 2px;
+            padding: 10px;
+        }
+
+        .btn span {
+            font-size: 27px;
+            color: white;
+        }
+
+        .buttonwrapper {
+            position: relative;
+            overflow: hidden;
+            height: 50px;
+        }
+
+        .lockbutton {
+            font-size: 27px;
+            color: #f96145;
+            padding: 10px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .loginbutton {
+            background-color: #f08000;
+            width: 100%;
+            -webkit-border-top-right-radius: 0;
+            -webkit-border-bottom-right-radius: 0;
+            -moz-border-radius-topright: 0;
+            -moz-border-radius-bottomright: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            left: -260px;
+            position: absolute;
+            top: 0;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-fluid" style="margin-top: 50px;margin-left: 50px;">
-    <div th:if="${param.error}">
-        <strong> 无效的账号和密码</strong>
-    </div>
-    <div th:if="${param.logout}">
-        <strong> 你已注销</strong>
-    </div>
-
-    <form th:action="@{/login}" method="post" class="form-inline">
-        <div class="form-group">
-            <label for="username">账号</label>
-            <input type="text" name="username" id="username" class="form-control"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="loginpanel">
+            <i id="loading" class="hidden fa fa-spinner fa-spin bigicon"></i>
+            <h2>
+                <span class="fa fa-quote-left "></span> 登录 <span class="fa fa-quote-right "></span>
+            </h2>
+            <div th:if="${param.error}">
+                <strong> 无效的账号和密码</strong>
+            </div>
+            <div th:if="${param.logout}">
+                <strong> 你已注销</strong>
+            </div>
+            <form th:action="@{/login}" method="post" id="form">
+                <div>
+                    <input type="text" name="username" id="username" onkeypress="check_values();"/>
+                    <input type="password" name="password" id="password" onkeypress="check_values();"/>
+                    <div class="buttonwrapper">
+                        <button id="loginbtn" class="btn btn-warning loginbutton">
+                            <span class="fa fa-check"></span>
+                        </button>
+                        <span id="lockbtn" class="fa fa-lock lockbutton redborder"></span>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="password">密码</label>
-            <input type="password" name="password" id="password" class="form-control"/>
-        </div>
-        <button type="submit" class="btn btn-info">登录</button>
-    </form>
+    </div>
 </div>
-<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
-<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+
 <script th:src="@{jquery-3.2.1.js}" type="text/javascript"></script>
 <script th:src="@{bootstrap/js/bootstrap.js}" type="text/javascript"></script>
 
+<script type="text/javascript">
+    function check_values() {
+        if ($("#username").val().length != 0 && $("#password").val().length != 0) {
+            $("#loginbtn").animate({left: '0', duration: 'slow'});
+            ;
+            $("#lockbtn").animate({left: '260px', duration: 'slow'});
+            ;
+        }
+    }
+
+    $("#loginbtn").click(function () {
+        $('#loading').removeClass('hidden');
+        //这里书写登录相关后台处理，例如: Ajax请求用户名和密码验证
+        console.log("form submit ... ");
+        $("#form").submit();
+    });
+
+</script>
 </body>
 </html>
