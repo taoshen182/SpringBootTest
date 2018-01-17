@@ -16,7 +16,7 @@ import java.io.File;
  */
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.wangtao.thymeleaf",  "com.wangtao.security"})
+@ComponentScan(basePackages = {"com.wangtao.thymeleaf", "com.wangtao.security", "com.wangtao.actuator"})
 //@MapperScan(basePackages = "com.wangtao.study.dao")
 //@EnableJpaRepositories(repositoryBaseClass = CustomRepositoryFactoryBean.class)
 public class StudyApplication {
