@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.thymeleaf.util.StringUtils;
 
 /**
@@ -15,6 +17,9 @@ import org.thymeleaf.util.StringUtils;
 public class ThymeleafController {
     @RequestMapping("/index")
     public String index(Model model) {
+        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+        String s = requestAttributes.toString();
+        System.out.println("s = " + s);
         PersonTest person = new PersonTest("wangtao", 26);
 
         model.addAttribute("person", person);
