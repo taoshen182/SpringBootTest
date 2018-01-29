@@ -1,5 +1,7 @@
 package com.wangtao.security;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,11 +33,9 @@ public class SysRole implements Serializable {
         this.name = name;
     }
 
+
     @Override
     public String toString() {
-        return "SysRole{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

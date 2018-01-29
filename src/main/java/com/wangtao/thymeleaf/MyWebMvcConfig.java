@@ -2,9 +2,16 @@ package com.wangtao.thymeleaf;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author : wangtao
@@ -24,6 +31,33 @@ public class MyWebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/action").setViewName("angulartest");
         registry.addViewController("/view1").setViewName("view1");
         registry.addViewController("/view2").setViewName("view2");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+//        SessionLocaleResolver slr = new SessionLocaleResolver();
+        // 默认语言
+//        slr.setDefaultLocale(Locale.US);
+
+        AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
+        List<Locale> locales = new ArrayList<>(2);
+        locales.add(Locale.US);
+        locales.add(Locale.CHINA);
+        resolver.setSupportedLocales(locales);
+        return resolver;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        // 参数名
+        lci.setParamName("lang");
+        return lci;
     }
 
 }

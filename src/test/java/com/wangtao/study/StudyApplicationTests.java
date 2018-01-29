@@ -26,11 +26,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.BufferedReader;
@@ -210,5 +213,14 @@ public class StudyApplicationTests {
                 SecurityContextHolder.getContext().getAuthentication());
     }
 
-
+    @Test
+    public void testMd5() {
+        Md5PasswordEncoder md5PasswordEncoder = new Md5PasswordEncoder();
+        String s = md5PasswordEncoder.encodePassword("wangtao", "wangtao");
+        System.out.println("s = " + s);
+        String password = "wangtao";
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        System.out.println("hashedPassword = " + hashedPassword);
+    }
 }

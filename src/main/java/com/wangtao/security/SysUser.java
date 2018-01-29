@@ -1,6 +1,7 @@
 package com.wangtao.security;
 
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,7 @@ public class SysUser implements UserDetails {
     private Long id;
     private String username;
     private String password;
+    private Boolean enabled;
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<SysRole> roles;
@@ -40,6 +42,7 @@ public class SysUser implements UserDetails {
     }
 
     public void setPassword(String password) {
+        System.out.println("setPassword password = " + password);
         this.password = password;
     }
 
@@ -63,6 +66,7 @@ public class SysUser implements UserDetails {
 
     @Override
     public String getPassword() {
+        System.out.println("getPassword password = " + this.password);
         return this.password;
     }
 
@@ -88,16 +92,11 @@ public class SysUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 
     @Override
     public String toString() {
-        return "SysUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", roles=" + roles +
-                '}';
+        return JSON.toJSONString(this);
     }
 }

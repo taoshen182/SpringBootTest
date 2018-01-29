@@ -3,14 +3,18 @@ package com.wangtao.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import javax.sql.DataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author : wangtao
@@ -20,9 +24,27 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
     UserDetailsService cutomUserService() {
         System.out.println("加载了自定义的UserDetailsService。。。");
         return new CustomUserService();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(cutomUserService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
     }
 
     @Override
@@ -41,12 +63,20 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 //开启cookie
 //                .and().rememberMe().tokenValiditySeconds(10000).key("mykey")
+                .and().headers().frameOptions().disable()
                 .and()
                 .logout()
 //                .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
+                .addLogoutHandler(new MyLogoutHandler())
 //                .logoutSuccessUrl("/login")
-                .permitAll();
+                .permitAll()
+//                .and().sessionManagement().maximumSessions(2).expiredUrl("/").sessionRegistry(sessionRegistry())
+        ;
+
+        // session管理
+        http.sessionManagement().sessionFixation().changeSessionId()
+                .maximumSessions(1).expiredUrl("/login?expired");
     }
 
 
@@ -65,11 +95,14 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        auth.jdbcAuthentication().dataSource(getApplicationContext().getBean(DataSource.class));
 
         //自定义数据用户
-        auth.userDetailsService(cutomUserService());
+//        auth.userDetailsService(cutomUserService());
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**/*.js","/**/*.css","/jquery-ui-1.12.1/**","/font-awesome/**");
+        web.ignoring().antMatchers("/**/*.html", "/**/*.js", "/**/*.css", "/jquery-ui-1.12.1/**", "/font-awesome/**");
     }
+
+
 }
