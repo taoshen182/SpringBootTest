@@ -1,5 +1,6 @@
 package com.wangtao.study;
 
+import com.alibaba.fastjson.JSON;
 import com.wangtao.aop.AopConfig;
 import com.wangtao.aop.AopService;
 import com.wangtao.aop.NoAnnotationService;
@@ -14,6 +15,8 @@ import com.wangtao.conditional.ListService;
 import com.wangtao.el.ElConfig;
 import com.wangtao.event.EventConfig;
 import com.wangtao.event.MyPublisher;
+import com.wangtao.mybatis.mapper.UsersMapper;
+import com.wangtao.mybatis.model.Users;
 import com.wangtao.profile.ProfileConfig;
 import com.wangtao.profile.ProfileService;
 import com.wangtao.properties.HelloService;
@@ -23,6 +26,7 @@ import com.wangtao.thymeleaf.ThymeleafController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.MediaType;
@@ -286,5 +290,21 @@ public class StudyApplicationTests {
 
         System.out.println("Tests completed");
 
+    }
+
+    @Autowired
+    private UsersMapper usersMapper;
+
+    @Test
+    public void testMybatisInsert() {
+        Users users = new Users();
+        users.setUsername("www");
+        users.setPassword("mybatis");
+        users.setEnabled("1");
+
+        int i = usersMapper.insert(users);
+
+        System.out.println("i = " + i);
+        System.out.println(JSON.toJSONString(users));
     }
 }
