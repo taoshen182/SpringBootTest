@@ -24,7 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/home", "/resources/**", "/signup", "/about").permitAll()//访问：/home 无需登录认证权限
+                .antMatchers("/home", "/resources/**","/static/**/*", "/signup", "/about").permitAll()//访问：/home 无需登录认证权限
                 .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
                 .antMatchers("/hello").hasAuthority("role_admin") //登陆后之后拥有“ADMIN”权限才可以访问/hello方法，否则系统会出现“403”权限不足的提示
                 .antMatchers("/db/**").access("hasRole('role_admin') and hasRole('role_dba')")
